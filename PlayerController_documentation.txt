@@ -1,0 +1,36 @@
+RIGIDBODY2D 
+
+RigidBody2D -> Player component, slouží k práci s gameobjectem Player
+
+rb2D -> RigidBody2D object, přejatý z objectu, na který je script navázán (Player)
+
+MOVEMENT
+
+void Update()
+zjistí současnou orientaci objectu horizontálně (-1 - vlevo, 0 - stojí, 1 - vpravo)
+zjistí současnou orientaci vertikálně ( 0 - stojí, 1 - nahoru)
+
+void FixedUpdate()
+if ( orientace vlevo NEBO orientace vpravo)
+	přidá vector2D(souřadnice pro orientaci po ose x (-1,1),0) ForceMode přidá instantí sílu objectu)
+
+if (Not Jumping A orientace nahoru)
+	přidá vector2D(orientace po ose x (0), posun nahoru (* jumpForce)), ForceMode přidá instantní sílu objectu)
+
+if (space pressed A orientace vlevo NEBO vpravo)
+	přidá vector2D (stejný jako u klasického Movementu, ale dvojnásobný)
+
+IS JUMPABLE
+
+pod hráčem se nachází boxcollider2D, který zjistí, jestli se pod ním nachází object s tagem "Platform"
+u boxcollider2D OnTrigger je zaškrtnuto 
+
+void OnTriggerEnter2D(BoxCollider2D pod hráčem definován jako collision)
+if (object se kterým colliduje má tag "Platform")
+	neskáče
+tato funkce se vyvolá, pokud boxcollider2D pod hráčem s něčím colliduje
+
+void OnTriggerExit2D(BoxCollider2D pod hráčem definován jako collision)
+if (object, se kterým collidnul měl tag "Platform", ale už s ním necolliduje)
+	skáče
+tato funkce se vyvolá, pokud boxcollider2D pod hráčem s ničím necolliduje
